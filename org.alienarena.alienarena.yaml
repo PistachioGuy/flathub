@@ -1,0 +1,24 @@
+id: org.alienarena.alienarena
+runtime: org.freedesktop.Platform
+runtime-version: '22.08'
+sdk: org.freedesktop.Sdk
+command: alienarena
+finish-args:
+- --share=ipc
+- --share=network
+- --socket=x11
+- --socket=pulseaudio
+- --device=dri
+modules:
+  - name: alienarena
+    buildsystem: autotools
+    no-autogen: true
+    sources:
+      - type: svn
+        url: svn://svn.icculus.org/alienarena/tags/7.71.4
+        revision: 5735
+    post-install:
+      - desktop-file-edit unix_dist/alien-arena.desktop --set-key Exec --set-value alienarena --set-key Icon --set-value org.alienarena.alienarena.png
+      - install -Dm644 unix_dist/alien-arena.png /app/share/icons/hicolor/256x256/apps/org.alienarena.alienarena.png
+      - install -Dm644 unix_dist/alien-arena.desktop /app/share/applications/org.alienarena.alienarena.desktop
+
